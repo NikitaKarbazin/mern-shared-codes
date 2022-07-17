@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-// app.use(errorControllerForOther)
+app.use(errorControllerForOther)
 
 app.use(errorController)
 
