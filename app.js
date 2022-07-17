@@ -5,10 +5,14 @@ const bodyParser = require('body-parser');
 const codesRoutes = require('./routes/codes-routes');
 const usersRoutes = require('./routes/users-routes');
 const {errorController, errorControllerForOther} = require("./controllers/error-controller");
+const path = require("path");
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(express.static(path.join('public')));
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,6 +25,10 @@ app.use((req, res, next) => {
 
 app.use('/api/codes', codesRoutes);
 app.use('/api/users', usersRoutes);
+
+app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 
 app.use(errorControllerForOther)
 
